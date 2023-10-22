@@ -63,28 +63,4 @@ export default class Api {
   updateTransactionDate = (id, payload) => {
     return this.init().put(`/api/v1/transactions/${id}/update-date`, payload);
   };
-
-  // getStudents = (params) => {
-  //   return this.init().get("/students", { params: params });
-  // };
-
-  // getGroups = (params) => {
-  //   return this.init().get("/groups", { params: params });
-  // };
-
-  // getTemplates = (params) => {
-  //   return this.init().get("/v1/templates", { params: params });
-  // };
-
-  // getScedules = (params) => {
-  //   return this.init().get("/schedules", { params: params });
-  // };
-
-  // getRubrics = (params) => {
-  //   return this.init().get("/rubrics", { params: params });
-  // };
-
-  // addNewUser = (data) => {
-  //   return this.init().post("/users", data);
-  // };
 }
