@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Api from "../../helper/api";
+import TransactionCard from "../../components/transactionCard/TransactionCard";
+import ModalMain from "../../components/modal/ModalMain";
 
 function Transaction() {
   const [isLoading, setIsLoading] = useState(true);
+  const [editData, setEditData] = useState([]);
   const [loadedData, setLoadedData] = useState([]);
+  const [modalType, setModalType] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const api = new Api();
@@ -32,35 +37,11 @@ function Transaction() {
       .catch((err) => console.log(err));
   };
 
-  // const handleAddAccount = async (e) => {
-  //   e.preventDefault();
-  //   console.log("Handle Add Acount");
-
-  //   try {
-  //     // Read the form data
-  //     const form = e.target;
-  //     console.log(form);
-  //     const request = {
-  //       name: e.target["account-name"].value,
-  //       user_id: 1,
-  //     };
-  //     // const formData = new FormData(form);
-
-  //     api
-  //       .addNewAccount(request)
-  //       .then((response) => {
-  //         return response["data"];
-  //       })
-  //       .then((data) => {
-  //         console.log(data);
-  //       });
-  //     // navigate(-1);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  console.log(loadedData);
+  function toggleModal(modal, data) {
+    setIsModalOpen(!isModalOpen);
+    setModalType(modal);
+    setEditData(data);
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -77,38 +58,25 @@ function Transaction() {
   }
 
   return (
-    <div className="home">
+    <div className="flex flex-col gap-3 h-full">
       <h1 className="mb-2">Transactions</h1>
-      {/* <form onSubmit={handleAddAccount}>
-        <div>
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="account-name"
-          >
-            Account Name
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="account-name"
-            type="text"
-            placeholder="Account Name"
-            name="account-name"
-          ></input>
-        </div>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          type="submit"
-        >
-          Send
-        </button>
-      </form> */}
+      {isModalOpen && editData.length !== 0 ? (
+        <ModalMain
+          toggle={toggleModal}
+          modalType={modalType}
+          editData={editData}
+        />
+      ) : null}
       <div className="flex flex-col gap-2">
         {loadedData.map((data) => (
-          <div key={data.id}>
-            <div className="">{data.accountName}</div>
-            <div className="">{data.categoryName}</div>
-            <div className="">{data.amount}</div>
-          </div>
+          <TransactionCard
+            key={data.id}
+            id={data.id}
+            accountName={data.accountName}
+            amount={data.amount}
+            transactionDate={data.transactionDate}
+            toggleModal={toggleModal}
+          />
         ))}
       </div>
     </div>

@@ -56,8 +56,10 @@ export default class Api {
   };
 
   updateAccount = (id, payload) => {
-    return this.init().put(`/api/v1/accounts/${id}/update`, payload)
-  }
+  updateTransactionDate = (id, payload) => {
+    return this.init().put(`/api/v1/transactions/${id}/update-date`, payload);
+  };
+
   // getStudents = (params) => {
   //   return this.init().get("/students", { params: params });
   // };
