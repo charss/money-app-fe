@@ -12,10 +12,11 @@ export default class Api {
     // this.api_token = getCookie("ACCESS_TOKEN");
 
     let headers = {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS, PUT",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
+      "Access-Control-Allow-Headers":
+        "Content-Type, Authorization, X-Requested-With",
     };
 
     // if (this.api_token) {
@@ -40,8 +41,8 @@ export default class Api {
   };
 
   addNewAccount = (data) => {
-    return this.init().post("/api/v1/accounts", data)
-  }
+    return this.init().post("/api/v1/accounts", data);
+  };
 
   getCategories = (params) => {
     return this.init().get("/api/v1/categories", { params: params });
@@ -56,6 +57,9 @@ export default class Api {
   };
 
   updateAccount = (id, payload) => {
+    return this.init().put(`/api/v1/accounts/${id}/update`, payload);
+  };
+
   updateTransactionDate = (id, payload) => {
     return this.init().put(`/api/v1/transactions/${id}/update-date`, payload);
   };
