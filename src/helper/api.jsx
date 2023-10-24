@@ -51,6 +51,10 @@ export default class Api {
   getTransactions = (params) => {
     return this.init().get("/api/v1/transactions", { params: params });
   };
+  
+  addNewTransaction = (payload) => {
+    return this.init().post("/api/v1/transactions", payload)
+  }
 
   getCategoriesWithTotal = (params) => {
     return this.init().get("/api/v1/categories/total", { params: params });
