@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import Modal from "./Modal";
 import EditModal from "./EditModal";
 import DateModal from "./DateModal";
+import AddTransactionModal from "./AddTransactionModal";
 
 function ModalMain({ toggle, modalType, editData }) {
 
@@ -9,6 +10,8 @@ function ModalMain({ toggle, modalType, editData }) {
     return <EditModal toggle={toggle} editData={editData} />;
   } else if (modalType === "DATE") {
     return <DateModal toggle={toggle} editData={editData} />;
+  } else if (modalType === "ADD TRANSACTION") {
+    return <AddTransactionModal toggle={toggle} modalData={editData} />;
   } else {
     return (
       <>

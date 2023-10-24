@@ -3,22 +3,26 @@ import { useNavigate } from "react-router-dom";
 
 import Api from "../../helper/api";
 import Modal from "../../components/modal/ModalTest";
+import ModalMain from "../../components/modal/ModalMain";
 
-function Category() {
+function Category({ toggleModal }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [modalData, setModalData] = useState(null);
   const [loadedData, setLoadedData] = useState([]);
   const [show, setShow] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
   const navigate = useNavigate();
 
   const api = new Api();
 
-  const toggleShow = () => setShow(current => !current);
+  const toggleShow = () => setShow((current) => !current);
 
   const fetchCategories = () => {
     api
-      .getCategoriesWithTotal()
+      .getCategories()
       .then((response) => {
         return response["data"];
       })
@@ -38,32 +42,11 @@ function Category() {
       .catch((err) => console.log(err));
   };
 
-  const handleAddTransaction = async (id) => {
-    console.log("Handle Add Transaction to", id);
-
-    // try {
-    //   // Read the form data
-    //   const form = e.target;
-    //   console.log(form);
-    //   const request = {
-    //     name: e.target["account-name"].value,
-    //     user_id: 1,
-    //   };
-    //   // const formData = new FormData(form);
-
-    //   api
-    //     .addNewAccount(request)
-    //     .then((response) => {
-    //       return response["data"];
-    //     })
-    //     .then((data) => {
-    //       console.log(data);
-    //     });
-    //   // navigate(-1);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
+  function toggleModal(modal, modalData) {
+    setIsModalOpen(!isModalOpen)
+    setModalType(modal)
+    setModalData(modalData);
+  }
 
   // console.log(loadedData);
 
@@ -84,6 +67,13 @@ function Category() {
   return (
     <div className="home">
       <h1>Categories</h1>
+      {isModalOpen && modalData !== null ? (
+        <ModalMain
+          toggle={toggleModal}
+          modalType={modalType}
+          editData={modalData}
+        />
+      ) : null}
       {/* <form onSubmit={handleAddTransaction}>
         <div>
           <label
@@ -112,7 +102,7 @@ function Category() {
           <div key={data.id}>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={() => handleAddTransaction(data.id)}
+              onClick={() => toggleModal("ADD TRANSACTION", data)}
             >
               <div className="">{data.name}</div>
             </button>
