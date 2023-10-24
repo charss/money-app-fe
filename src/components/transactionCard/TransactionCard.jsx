@@ -10,10 +10,13 @@ export default function TransactionCard({
 }) {
   const formatted_date = format(new Date(transactionDate), "MMM dd, yyyy");
 
+  console.log(type);
   return (
     <div className="flex flex-col mb-2 align-middle justify-center w-96 border">
       <span className="text-sky-50">{accountName}</span>
-      <span className={type == 'Expense' ? 'text-red-400' : 'text-green-400'}>{amount}</span>
+      <span className={type === "expense" ? "text-red-400" : "text-green-400"}>
+        {amount}
+      </span>
       <span className="text-green-400">{formatted_date}</span>
       <div className="flex gap-1">
         <button
