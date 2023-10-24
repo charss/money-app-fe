@@ -7,7 +7,7 @@ import ModalMain from "../../components/modal/ModalMain";
 
 function Transaction() {
   const [isLoading, setIsLoading] = useState(true);
-  const [editData, setEditData] = useState([]);
+  const [editData, setEditData] = useState(null);
   const [loadedData, setLoadedData] = useState([]);
   const [modalType, setModalType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,9 +38,13 @@ function Transaction() {
   };
 
   function toggleModal(modal, data) {
-    setIsModalOpen(!isModalOpen);
-    setModalType(modal);
-    setEditData(data);
+    if (modal === "CLOSE") {
+      setIsModalOpen(false);
+    } else {
+      setIsModalOpen(true);
+      setModalType(modal);
+      setEditData(data);
+    }
   }
 
   useEffect(() => {
@@ -60,11 +64,18 @@ function Transaction() {
   return (
     <div className="flex flex-col gap-3 h-full">
       <h1 className="mb-2">Transactions</h1>
-      {isModalOpen && editData.length !== 0 ? (
+      <button
+        className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+        onClick={() => toggleModal("DEFAULT")}
+      >
+        Add Transaction +
+      </button>
+      {isModalOpen && editData !== null ? (
         <ModalMain
           toggle={toggleModal}
           modalType={modalType}
           editData={editData}
+          root="transactions"
         />
       ) : null}
       <div className="flex flex-col gap-2">

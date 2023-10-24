@@ -5,7 +5,7 @@ import Api from "../../helper/api";
 import Modal from "../../components/modal/ModalTest";
 import ModalMain from "../../components/modal/ModalMain";
 
-function Category({ toggleModal }) {
+function Category() {
   const [isLoading, setIsLoading] = useState(true);
   const [modalData, setModalData] = useState(null);
   const [loadedData, setLoadedData] = useState([]);
@@ -43,8 +43,8 @@ function Category({ toggleModal }) {
   };
 
   function toggleModal(modal, modalData) {
-    setIsModalOpen(!isModalOpen)
-    setModalType(modal)
+    setIsModalOpen(!isModalOpen);
+    setModalType(modal);
     setModalData(modalData);
   }
 
@@ -72,6 +72,7 @@ function Category({ toggleModal }) {
           toggle={toggleModal}
           modalType={modalType}
           editData={modalData}
+          root="categories"
         />
       ) : null}
       {/* <form onSubmit={handleAddTransaction}>
@@ -111,8 +112,8 @@ function Category({ toggleModal }) {
         ))}
       </div>
 
-      <button onClick={toggleShow}>Open Modal</button>
-      <Modal show={show} toggleShow={toggleShow} />
+      {/* <button onClick={toggleShow}>Open Modal</button> */}
+      {/* <Modal show={show} toggleShow={toggleShow} /> */}
     </div>
   );
 }
