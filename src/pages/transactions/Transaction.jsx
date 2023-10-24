@@ -75,6 +75,7 @@ function Transaction() {
             accountName={data.accountName}
             amount={data.amount}
             transactionDate={data.transactionDate}
+            type={data.type}
             toggleModal={toggleModal}
           />
         ))}
