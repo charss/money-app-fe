@@ -40,8 +40,18 @@ function Navbar() {
   ];
 
   return (
-    <div className="flex flex-row gap-x-8 fixed h-10 bg-sky-900 w-full items-center">
-      <NavLink to="/" end>
+    <div className="flex flex-col gap-3 bg-stone-800 pt-7 px-3 h-screen">
+      {/* <NavLink 
+        to="/" 
+        className={({ isActive, isPending, isTransitioning }) =>
+          [
+            isPending ? "pending" : "",
+            isActive ? "bg-yellow-400" : "",
+            isTransitioning ? "transitioning" : "",
+          ].join(" ")
+        }
+        end
+      >
         <span>Home</span>
       </NavLink>
       <NavLink to="/accounts/">
@@ -53,6 +63,7 @@ function Navbar() {
       <NavLink to="/transactions/" end>
         <span>Transactions</span>
       </NavLink>
+      {/* <button onClick={handleLogInOut}>HERE {getLogInOutText}</button> */}
     </div>
   );
 }
