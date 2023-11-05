@@ -1,5 +1,6 @@
 import { useKeycloak } from "@react-keycloak/web";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import NavItem from "./NavItem";
 
 function Navbar() {
   const { keycloak } = useKeycloak();
@@ -20,8 +21,18 @@ function Navbar() {
 
 
   return (
-    <div className="flex flex-row gap-x-8 fixed h-10 bg-sky-900 w-full items-center">
-      <NavLink to="/" end>
+    <div className="flex flex-col gap-3 bg-stone-800 pt-7 px-3 h-screen">
+      {/* <NavLink 
+        to="/" 
+        className={({ isActive, isPending, isTransitioning }) =>
+          [
+            isPending ? "pending" : "",
+            isActive ? "bg-yellow-400" : "",
+            isTransitioning ? "transitioning" : "",
+          ].join(" ")
+        }
+        end
+      >
         <span>Home</span>
       </NavLink>
       <NavLink to="/accounts/">
@@ -32,7 +43,11 @@ function Navbar() {
       </NavLink>
       <NavLink to="/transactions/" end>
         <span>Transactions</span>
-      </NavLink>
+      </NavLink> */}
+      <NavItem text="Home" link="/" />
+      <NavItem text="Accounts" link="/accounts/" />
+      <NavItem text="Categories" link="/categories/" />
+      <NavItem text="Transactions" link="/transactions/" />
       {/* <button onClick={handleLogInOut}>HERE {getLogInOutText}</button> */}
     </div>
   );
