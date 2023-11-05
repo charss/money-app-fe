@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home"
+import Home from "./pages/home/Home";
 import Account from "./pages/accounts/Account";
 import Category from "./pages/categories/Category";
 import Transaction from "./pages/transactions/Transaction";
@@ -15,29 +15,19 @@ function App() {
     clientId: "money-app-web",
   });
 
-  const initOptions = { pkceMethod: 'S256' }
+  const initOptions = { pkceMethod: "S256" };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex flex-row overflow-hidden">
       <ReactKeycloakProvider authClient={keycloak} initOptions={initOptions}>
-        <Navbar />
-        <div className="pt-12">
+        <Navbar className="flex-initial basis-1/6" />
+        <div className="pt-12 w-full max-h-screen overflow-y-auto p-5">
           <PrivateRoute>
             <Routes>
               <Route path="/">
-                <Route
-                  index
-                  element={
-                      <Home />
-                  }
-                />
+                <Route index element={<Home />} />
                 <Route path="accounts">
-                  <Route
-                    index
-                    element={
-                        <Account />
-                    }
-                  />
+                  <Route index element={<Account />} />
                 </Route>
                 <Route path="categories">
                   <Route index element={<Category />} />
