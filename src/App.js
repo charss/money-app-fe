@@ -5,7 +5,6 @@ import Category from "./pages/categories/Category";
 import Transaction from "./pages/transactions/Transaction";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import Keycloak from "keycloak-js";
-import PrivateRoute from "./helper/PrivateRoute";
 import Navbar from "./components/navbar/Navbar";
 
 function App() {
@@ -22,22 +21,20 @@ function App() {
       <ReactKeycloakProvider authClient={keycloak} initOptions={initOptions}>
         <Navbar className="flex-initial basis-1/6" />
         <div className="pt-12 w-full max-h-screen overflow-y-auto p-5">
-          <PrivateRoute>
-            <Routes>
-              <Route path="/">
-                <Route index element={<Home />} />
-                <Route path="accounts">
-                  <Route index element={<Account />} />
-                </Route>
-                <Route path="categories">
-                  <Route index element={<Category />} />
-                </Route>
-                <Route path="transactions">
-                  <Route index element={<Transaction />} />
-                </Route>
+          <Routes>
+            <Route path="/">
+              <Route index element={<Home />} />
+              <Route path="accounts">
+                <Route index element={<Account />} />
               </Route>
-            </Routes>
-          </PrivateRoute>
+              <Route path="categories">
+                <Route index element={<Category />} />
+              </Route>
+              <Route path="transactions">
+                <Route index element={<Transaction />} />
+              </Route>
+            </Route>
+          </Routes>
         </div>
       </ReactKeycloakProvider>
     </div>
