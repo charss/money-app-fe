@@ -1,43 +1,24 @@
-import { Link, NavLink } from "react-router-dom";
+import { useKeycloak } from "@react-keycloak/web";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import NavItem from "./NavItem";
 
 function Navbar() {
-  const NAVIGATIONS = [
-    {
-      id: 1,
-      title: "Dashboard",
-      url: "/",
-    },
-    {
-      id: 2,
-      title: "Groups",
-      url: "/groups/",
-    },
-    {
-      id: 3,
-      title: "Panelists",
-      url: "/panelists/",
-    },
-    {
-      id: 4,
-      title: "Students",
-      url: "/students/",
-    },
-    {
-      id: 5,
-      title: "Schedules",
-      url: "/schedules/",
-    },
-    {
-      id: 6,
-      title: "Gradesheets",
-      url: "/gradesheets/",
-    },
-    {
-      id: 7,
-      title: "Rubrics",
-      url: "/rubrics/",
-    },
-  ];
+  const { keycloak } = useKeycloak();
+  const navigate = useNavigate();
+
+  const handleLogInOut = () => {
+    if (keycloak.authenticated) {
+      navigate('/')
+      keycloak.logout();
+    } else {
+      keycloak.login();
+    }
+  }
+
+  const getLogInOutText = () => {
+    return keycloak.authenticated ? "Logout" : "Login"
+  }
+
 
   return (
     <div className="flex flex-col gap-3 bg-stone-800 pt-7 px-3 h-screen">
@@ -62,7 +43,11 @@ function Navbar() {
       </NavLink>
       <NavLink to="/transactions/" end>
         <span>Transactions</span>
-      </NavLink>
+      </NavLink> */}
+      <NavItem text="Home" link="/" />
+      <NavItem text="Accounts" link="/accounts/" />
+      <NavItem text="Categories" link="/categories/" />
+      <NavItem text="Transactions" link="/transactions/" />
       {/* <button onClick={handleLogInOut}>HERE {getLogInOutText}</button> */}
     </div>
   );
